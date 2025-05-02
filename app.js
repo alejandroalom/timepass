@@ -1,0 +1,20 @@
+console.log("app.js se está ejecutando");
+const express = require('express')
+const app = express()
+const PORT = 3000
+
+const indexRouter = require('./routes/index.js')
+const endrouteRouter = require('./routes/endroute.js')
+const horaMiddleware = require('./middlewares/horaMiddleware.js')
+
+app.use(horaMiddleware)
+
+app.use('/', indexRouter);
+app.use('/endroute', endrouteRouter);
+
+app.use((req, res) => {
+  res.status(404).send('<h1>Página no encontrada</h1>')
+})
+
+
+app.listen(PORT, () => console.log(`El servidor está escuchando en http://localhost:${PORT}`))
